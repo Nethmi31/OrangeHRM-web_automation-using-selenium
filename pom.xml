@@ -48,13 +48,13 @@
     		<version>4.21.0</version>
 		</dependency>
 
-		<!-- Source: https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+		<!-- Source: https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
 		<dependency>
     		<groupId>io.github.bonigarcia</groupId>
     		<artifactId>webdrivermanager</artifactId>
     		<version>5.5.3</version>
     		<scope>compile</scope>
-		</dependency> -->
+		</dependency>
 
 		<!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>

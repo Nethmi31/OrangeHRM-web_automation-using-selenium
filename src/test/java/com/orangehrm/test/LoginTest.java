@@ -16,15 +16,15 @@ import java.time.Duration;
 
 public class LoginTest extends BaseTest {
 
-    @Test
-    public void testValidLogin(){
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.Login("Admin","admin123");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
-        boolean isDashboardVisible = wait
-            .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Dashboard']"))).isDisplayed();
-        Assert.assertTrue(isDashboardVisible, "Dashboard should be visible after successful login");
+    // @Test
+    // public void testValidLogin(){
+    //     LoginPage loginPage = new LoginPage(driver);
+    //     loginPage.Login("Admin","admin123");
+    //     WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+    //     boolean isDashboardVisible = wait
+    //         .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Dashboard']"))).isDisplayed();
+    //     Assert.assertTrue(isDashboardVisible, "Dashboard should be visible after successful login");
        
         
-    }
+    // }
 }

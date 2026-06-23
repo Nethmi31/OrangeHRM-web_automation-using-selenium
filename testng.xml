@@ -10,4 +10,10 @@
             <class name="com.orangehrm.test.LoginTest"/>
         </classes>
     </test>
+
+    <test name="Logout Tests">
+        <classes>
+            <class name="com.orangehrm.test.LogoutTest"/>
+        </classes>
+    </test>
 </suite>

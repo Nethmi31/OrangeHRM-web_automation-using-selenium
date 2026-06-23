@@ -17,16 +17,18 @@ public class ExtentReportListener implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter("reports/TestReport.html");
-        sparkReporter.config().setDocumentTitle("OrangeHRM Test Report");
-        sparkReporter.config().setReportName("OrangeHRM Automation Results");
-        sparkReporter.config().setTheme(Theme.STANDARD);
+        if (extent == null) {
+            ExtentSparkReporter sparkReporter = new ExtentSparkReporter("reports/TestReport.html");
+            sparkReporter.config().setDocumentTitle("OrangeHRM Test Report");
+            sparkReporter.config().setReportName("OrangeHRM Automation Results");
+            sparkReporter.config().setTheme(Theme.STANDARD);
 
-        extent = new ExtentReports();
-        extent.attachReporter(sparkReporter);
-        extent.setSystemInfo("Application", "OrangeHRM");
-        extent.setSystemInfo("Browser", "Chrome");
-        extent.setSystemInfo("OS", System.getProperty("os.name"));
+            extent = new ExtentReports();
+            extent.attachReporter(sparkReporter);
+            extent.setSystemInfo("Application", "OrangeHRM");
+            extent.setSystemInfo("Browser", "Chrome");
+            extent.setSystemInfo("OS", System.getProperty("os.name"));
+        }
     }
 
     @Override

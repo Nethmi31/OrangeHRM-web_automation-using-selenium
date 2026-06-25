@@ -16,4 +16,10 @@
             <class name="com.orangehrm.test.LogoutTest"/>
         </classes>
     </test>
+
+    <test name="Admin Tests">
+        <classes>
+            <class name="com.orangehrm.test.AdminTest"/>
+        </classes>
+    </test>
 </suite>

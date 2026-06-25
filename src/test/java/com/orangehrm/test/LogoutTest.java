@@ -1,7 +1,10 @@
 package com.orangehrm.test;
 
+import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,7 +17,7 @@ public class LogoutTest extends BaseTest {
 
     private LogoutPage logoutPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void loginFirst() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.Login("Admin", "admin123");
@@ -31,8 +34,12 @@ public class LogoutTest extends BaseTest {
     @Test(description = "TC_LO_02 - Verify session invalidation after logout (back button)", groups = {"Logout Module"})
     public void testSessionInvalidationAfterLogout() {
         logoutPage.clickLogout();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("login"));
         driver.navigate().back();
-        Assert.assertTrue(logoutPage.getCurrentUrl().contains("login"),
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("login"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("login"),
                 "Should remain on login page, not cached dashboard");
     }
 

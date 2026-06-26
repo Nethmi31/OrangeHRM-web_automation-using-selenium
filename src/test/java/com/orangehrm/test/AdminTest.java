@@ -26,11 +26,23 @@ public class AdminTest extends BaseTest {
                 "Admin page should load with System Users header displayed");
     }
 
-    @Test(description = "TC_A_02 - Search system user by username", groups = {"Admin Module"})
+    @Test(description = "TC_A_02 - Search system user by username, role, and status", groups = {"Admin Module"})
     public void testSearchUserByUsername() {
         adminPage.searchByUsername("Admin");
         Assert.assertTrue(adminPage.getTableRowCount() > 0,
                 "Table should show matching user records for username 'Admin'");
+
+        adminPage.clickReset();
+        adminPage.searchSelectUserRole("Admin");
+        adminPage.clickSearch();
+        Assert.assertTrue(adminPage.getTableRowCount() > 0,
+                "Table should show matching user records for User Role 'Admin'");
+
+        adminPage.clickReset();
+        adminPage.searchSelectStatus("Enabled");
+        adminPage.clickSearch();
+        Assert.assertTrue(adminPage.getTableRowCount() > 0,
+                "Table should show matching user records for Status 'Enabled'");
     }
 
     @Test(description = "TC_A_03 - Search system user with no results", groups = {"Admin Module"})
@@ -47,6 +59,16 @@ public class AdminTest extends BaseTest {
         String fieldValue = adminPage.getSearchFieldValue();
         Assert.assertTrue(fieldValue == null || fieldValue.isEmpty(),
                 "Username search field should be cleared after reset");
+
+        adminPage.searchSelectUserRole("Admin");
+        adminPage.searchSelectStatus("Enabled");
+        adminPage.clickReset();
+        String roleText = adminPage.getUserRoleDropdownText();
+        String statusText = adminPage.getStatusDropdownText();
+        Assert.assertEquals(roleText, "-- Select --",
+                "User Role dropdown should reset to default '-- Select --'");
+        Assert.assertEquals(statusText, "-- Select --",
+                "Status dropdown should reset to default '-- Select --'");
     }
 
     @Test(description = "TC_A_05 - Add new system user", groups = {"Admin Module"})
@@ -92,6 +114,29 @@ public class AdminTest extends BaseTest {
         adminPage.clickSave();
         Assert.assertTrue(adminPage.isPasswordMismatchErrorDisplayed(),
                 "'Passwords do not match' error should be displayed");
+    }
+
+    @Test(description = "TC_A_11 - Edit system user details", groups = {"Admin Module"})
+    public void testEditSystemUserDetails() {
+        String uniqueUsername = "EditUser" + System.currentTimeMillis();
+        adminPage.clickAdd();
+        adminPage.fillAddUserForm("ESS", "Enabled", "a", uniqueUsername, "Test@12345");
+        adminPage.clickSave();
+        Assert.assertTrue(adminPage.isSaveSuccessful(),
+                "User should be created before editing");
+
+        adminPage.navigateToAdmin();
+        adminPage.searchByUsername(uniqueUsername);
+        adminPage.clickEditFirstUser();
+        Assert.assertTrue(adminPage.isEditPageDisplayed(),
+                "Edit User page should be displayed");
+
+        adminPage.editStatus("Disabled");
+        String editedUsername = "Edited" + System.currentTimeMillis();
+        adminPage.editUsername(editedUsername);
+        adminPage.clickSave();
+        Assert.assertTrue(adminPage.isSaveSuccessful(),
+                "Success should occur after editing user details");
     }
 
     @Test(description = "TC_A_09 - Delete system user", groups = {"Admin Module"})

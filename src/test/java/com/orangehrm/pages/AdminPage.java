@@ -127,6 +127,71 @@ public class AdminPage {
                 .getAttribute("value");
     }
 
+    public void searchSelectUserRole(String role) {
+        wait.until(ExpectedConditions.elementToBeClickable(userRoleDropdown)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dropdownOptions));
+        List<WebElement> options = driver.findElements(dropdownOptions);
+        for (WebElement option : options) {
+            if (option.getText().equals(role)) {
+                option.click();
+                break;
+            }
+        }
+    }
+
+    public void searchSelectStatus(String status) {
+        wait.until(ExpectedConditions.elementToBeClickable(statusDropdown)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dropdownOptions));
+        List<WebElement> options = driver.findElements(dropdownOptions);
+        for (WebElement option : options) {
+            if (option.getText().equals(status)) {
+                option.click();
+                break;
+            }
+        }
+    }
+
+    public void searchEnterEmployeeName(String name) {
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(employeeNameField));
+        field.click();
+        field.clear();
+        field.sendKeys(name);
+
+        By validOption = By.xpath("//div[contains(@class,'oxd-autocomplete-option')]//span");
+        try {
+            shortWait.until(ExpectedConditions.numberOfElementsToBeMoreThan(validOption, 0));
+        } catch (Exception e) {
+            field.clear();
+            field.sendKeys("an");
+            shortWait.until(ExpectedConditions.numberOfElementsToBeMoreThan(validOption, 0));
+        }
+
+        try { Thread.sleep(500); } catch (InterruptedException ignored) {}
+
+        List<WebElement> suggestions = driver.findElements(autocompleteOptions);
+        for (WebElement suggestion : suggestions) {
+            String text = suggestion.getText().trim();
+            if (!text.isEmpty() && !text.equalsIgnoreCase("No Records Found")
+                    && !text.equalsIgnoreCase("Searching...")) {
+                suggestion.click();
+                shortWait.until(ExpectedConditions.invisibilityOfElementLocated(autocompleteOptions));
+                return;
+            }
+        }
+    }
+
+    public void clickSearch() {
+        wait.until(ExpectedConditions.elementToBeClickable(searchButton)).click();
+    }
+
+    public String getUserRoleDropdownText() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(userRoleDropdown)).getText();
+    }
+
+    public String getStatusDropdownText() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(statusDropdown)).getText();
+    }
+
     // --- Add User ---
 
     public void clickAdd() {
@@ -259,6 +324,36 @@ public class AdminPage {
     public boolean isPasswordMismatchErrorDisplayed() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(passwordMismatchError))
                 .isDisplayed();
+    }
+
+    // --- Edit User ---
+
+    private By editIcon = By.xpath(
+            "//div[@class='oxd-table-body']//div[@role='row'][1]//div[contains(@class,'oxd-table-cell-actions')]//i[contains(@class,'bi-pencil')]");
+    private By editPageHeader = By.xpath("//h6[text()='Edit User']");
+
+    public void clickEditFirstUser() {
+        wait.until(ExpectedConditions.elementToBeClickable(editIcon)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(editPageHeader));
+    }
+
+    public void editUserRole(String role) {
+        selectUserRole(role);
+    }
+
+    public void editStatus(String status) {
+        selectStatus(status);
+    }
+
+    public void editUsername(String username) {
+        WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField));
+        field.clear();
+        field.sendKeys(username);
+        field.sendKeys(Keys.TAB);
+    }
+
+    public boolean isEditPageDisplayed() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(editPageHeader)).isDisplayed();
     }
 
     // --- Delete ---

@@ -22,4 +22,10 @@
             <class name="com.orangehrm.test.AdminTest"/>
         </classes>
     </test>
+
+    <test name="PIM Tests">
+        <classes>
+            <class name="com.orangehrm.test.PIMTest"/>
+        </classes>
+    </test>
 </suite>

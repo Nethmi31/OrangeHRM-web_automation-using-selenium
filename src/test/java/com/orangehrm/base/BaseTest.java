@@ -3,9 +3,12 @@ package com.orangehrm.base;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.openqa.selenium.chrome.ChromeDriver;
+import com.orangehrm.listeners.ExtentReportListener;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+@Listeners(ExtentReportListener.class)
 public class BaseTest {
 
     protected WebDriver driver;

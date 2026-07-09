@@ -28,4 +28,16 @@
             <class name="com.orangehrm.test.PIMTest"/>
         </classes>
     </test>
+
+    <test name="Leave Tests">
+        <classes>
+            <class name="com.orangehrm.test.LeaveTest"/>
+        </classes>
+    </test>
+
+    <test name="Recruitment Tests">
+        <classes>
+            <class name="com.orangehrm.test.RecruitmentTest"/>
+        </classes>
+    </test>
 </suite>

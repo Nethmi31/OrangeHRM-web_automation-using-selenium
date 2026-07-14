@@ -29,6 +29,12 @@
         </classes>
     </test>
 
+    <test name="My Info Tests">
+        <classes>
+            <class name="com.orangehrm.test.MyInfoTest"/>
+        </classes>
+    </test>
+
     <test name="Leave Tests">
         <classes>
             <class name="com.orangehrm.test.LeaveTest"/>

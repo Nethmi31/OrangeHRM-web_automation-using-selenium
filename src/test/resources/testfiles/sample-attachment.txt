@@ -1,0 +1,1 @@
+Sample attachment file used by MyInfoTest automated test cases.

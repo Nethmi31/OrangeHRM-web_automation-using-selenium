@@ -46,4 +46,10 @@
             <class name="com.orangehrm.test.RecruitmentTest"/>
         </classes>
     </test>
+
+    <test name="Performance Tests">
+        <classes>
+            <class name="com.orangehrm.test.PerformanceTest"/>
+        </classes>
+    </test>
 </suite>
